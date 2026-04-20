@@ -1,0 +1,35 @@
+{
+    "displayName": "Drift",
+    "uuid": "f7f8132f-cf6f-44fb-9ff8-f2deb5b88125",
+    "sdkVersion": "3",
+    "enableMultiJS": true,
+    "targetPlatforms": [
+        "aplite",
+        "basalt",
+        "chalk",
+        "diorite",
+        "emery",
+        "flint",
+        "gabbro"
+    ],
+    "watchapp": {
+        "watchface": true
+    },
+    "messageKeys": {
+        "BG_COLOR": 10000,
+        "SEC_INTERVAL": 10001
+    },
+    "resources": {
+        "media": []
+    },
+    "name": "drift",
+    "shortName": "Drift",
+    "longName": "Drift",
+    "versionLabel": "1.0",
+    "companyName": "Algorythm",
+    "appKeys": {
+        "BG_COLOR": 10000,
+        "SEC_INTERVAL": 10001
+    },
+    "capabilities": []
+}

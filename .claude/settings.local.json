@@ -1,0 +1,43 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pebble build:*)",
+      "Bash(timedatectl)",
+      "Read(//etc/**)",
+      "Bash(git -C /home/jeppe/pebble-projects/my-watchface status)",
+      "Bash(npm install:*)",
+      "Bash(pebble clean:*)",
+      "Bash(pebble repl:*)",
+      "Bash(python3 -c \"import pebble; print\\(dir\\(pebble\\)\\)\")",
+      "Bash(python3 -c \"from libpebble2.communication import PebbleConnection; print\\([m for m in dir\\(PebbleConnection\\) if 'app' in m.lower\\(\\) or 'message' in m.lower\\(\\)]\\)\")",
+      "Bash(npm show:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(pebble install *)",
+      "Bash(pebble logs *)",
+      "Bash(kill %1)",
+      "Bash(pebble ping *)",
+      "Read(//home/jeppe/.pebble-sdk/**)",
+      "Read(//home/jeppe/.pebble/**)",
+      "Read(//tmp/**)",
+      "Bash(pebble kill *)",
+      "Bash(pebble wipe *)",
+      "Bash(pebble screenshot *)",
+      "Bash(rsvg-convert --version)",
+      "Bash(inkscape --version)",
+      "Bash(python3 -c \"import cairosvg\")",
+      "Bash(node -e \"require\\('sharp'\\)\")",
+      "Read(//usr/bin/**)",
+      "Bash(node -e \"const fs=require\\('fs'\\); console.log\\(Object.keys\\(require\\('/home/jeppe/pebble-projects/my-watchface/node_modules'\\)\\)\\)\")",
+      "Bash(npm list *)",
+      "Bash(pip3 show *)",
+      "Bash(python3 -m pip install cairosvg --quiet)",
+      "Bash(sudo apt-get *)",
+      "Bash(npm --version)",
+      "Bash(npx --yes svgexport --help)",
+      "Bash(npx svgexport *)",
+      "Bash(npx --yes @resvg/resvg-js --version)",
+      "Bash(npx --yes resvg --version)",
+      "Bash(node -e ' *)"
+    ]
+  }
+}
