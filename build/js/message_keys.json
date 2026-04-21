@@ -1,5 +1,4 @@
 {
-    "BG_COLOR": 10001,
-    "SEC_INTERVAL": 10002,
-    "dummy": 10000
+    "BG_COLOR": 10000,
+    "SEC_INTERVAL": 10001
 }

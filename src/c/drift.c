@@ -87,6 +87,27 @@ static const uint8_t s_bayer[4][4] = {
   { 15,  7, 13,  5 },
 };
 
+// Returns Bayer threshold (0–16) for a hand pixel.
+// side_zone: width of the side-fade band (hw - HAND_SOLID_HW).
+static int hand_threshold(int ad_perp, int end_dist, int side_zone) {
+  int threshold = 16;
+  if (ad_perp > HAND_SOLID_HW && side_zone > 0) {
+    int t = 16 - (ad_perp - HAND_SOLID_HW) * 16 / side_zone;
+    if (t < threshold) threshold = t;
+  }
+  if (end_dist < HAND_FADE) {
+    int t = end_dist * 16 / HAND_FADE;
+    if (t < threshold) threshold = t;
+  }
+  return threshold;
+}
+
+// Returns Bayer threshold (0–16) for a dot pixel based on squared distances.
+static int dot_threshold(int d2, int inner_r2, int outer_r2) {
+  if (d2 <= inner_r2) return 16;
+  return 16 - (d2 - inner_r2) * 16 / (outer_r2 - inner_r2);
+}
+
 static GPoint point_at(int32_t angle, int radius) {
   GPoint c = GPoint(CX, CY);
   return GPoint(
@@ -148,19 +169,7 @@ static void draw_hand(GContext *ctx, int32_t angle, int from_r, int to_r, int hw
       int d_tip    = (int)((to_s   - along_s) / TRIG_MAX_RATIO);
       int end_dist = d_tail < d_tip ? d_tail : d_tip;
 
-      // Bayer threshold: take the minimum of side and end contributions
-      int threshold = 16;
-
-      if (ad_perp > HAND_SOLID_HW && side_zone > 0) {
-        int t = 16 - (ad_perp - HAND_SOLID_HW) * 16 / side_zone;
-        if (t < threshold) threshold = t;
-      }
-
-      if (end_dist < HAND_FADE) {
-        int t = end_dist * 16 / HAND_FADE;
-        if (t < threshold) threshold = t;
-      }
-
+      int threshold = hand_threshold(ad_perp, end_dist, side_zone);
       if (threshold <= 0) continue;
       if (threshold < 16 && s_bayer[y & 3][x & 3] >= threshold) continue;
 
@@ -219,10 +228,7 @@ static void dot_update_proc(Layer *layer, GContext *ctx) {
       int px = ox + lx;
       int py = oy + ly;
 
-      int threshold = 16;
-      if (d2 > inner_r2) {
-        threshold = 16 - (d2 - inner_r2) * 16 / (outer_r2 - inner_r2);
-      }
+      int threshold = dot_threshold(d2, inner_r2, outer_r2);
       if (threshold <= 0) continue;
       if (threshold < 16 && s_bayer[py & 3][px & 3] >= threshold) continue;
 

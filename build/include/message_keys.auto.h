@@ -8,4 +8,3 @@
 
 extern uint32_t MESSAGE_KEY_BG_COLOR;
 extern uint32_t MESSAGE_KEY_SEC_INTERVAL;
-extern uint32_t MESSAGE_KEY_dummy;

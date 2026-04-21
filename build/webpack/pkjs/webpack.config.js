@@ -6,7 +6,7 @@ const isSandbox = false;
 
 // Array with absolute file path strings
 const entryFilenames = ["_pkjs_shared_additions.js",
-"/home/jeppe/pebble-projects/my-watchface/src/pkjs/index.js"];
+"/home/jeppe/pebble-projects/drift_watchface/src/pkjs/index.js"];
 
 // folder path string
 const outputPath = "build";
@@ -18,10 +18,10 @@ const outputFilename = "pebble-js-app.js";
 const resolveRoots = ["/home/jeppe/.pebble-sdk/SDKs/current/sdk-core/pebble/common/include",
 "/home/jeppe/.pebble-sdk/SDKs/current/sdk-core/pebble/common/tools/webpack",
 "/home/jeppe/.pebble-sdk/SDKs/current/node_modules",
-"/home/jeppe/pebble-projects/my-watchface/build/js"];
+"/home/jeppe/pebble-projects/drift_watchface/build/js"];
 
 // Object, { alias1: 'path1', ... }
-const resolveAliases = {"app_package.json": "/home/jeppe/pebble-projects/my-watchface/package.json"};
+const resolveAliases = {"app_package.json": "/home/jeppe/pebble-projects/drift_watchface/package.json"};
 
 // null or Object with key 'sourceMapFilename'
 const sourceMapConfig = {"sourceMapFilename": "pebble-js-app.js.map"};
