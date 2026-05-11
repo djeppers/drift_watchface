@@ -1,7 +1,7 @@
 {
   "name": "drift",
   "author": "Algorythm",
-  "version": "1.1.0",
+  "version": "1.2.1",
   "description": "Inspired by Japanese wall clocks where the hands seem to hover above the face, casting soft shadows as they move. No numbers, no markers, no center point - just floating hands and a quiet red dot tracing the seconds. Has a blurred look to it.",
   "keywords": [
     "pebble-app",

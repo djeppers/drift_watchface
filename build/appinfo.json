@@ -27,7 +27,7 @@
     "name": "drift",
     "shortName": "Drift",
     "longName": "Drift",
-    "versionLabel": "1.1.0",
+    "versionLabel": "1.2.1",
     "companyName": "Algorythm",
     "appKeys": {
         "BG_COLOR": 10000,
