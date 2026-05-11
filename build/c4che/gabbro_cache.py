@@ -14,11 +14,11 @@ CC_NAME = 'gcc'
 CC_SRC_F = []
 CC_TGT_F = ['-c', '-o']
 CC_VERSION = ('14', '2', '1')
-CFLAGS = ['-std=c99', '-mcpu=cortex-m3', '-mthumb', '-ffunction-sections', '-fdata-sections', '-fcommon', '-g', '-fPIE', '-Os', '-D_TIME_H_', '-Dtime_t=long', '-Wall', '-Wextra', '-Werror', '-Wno-unused-parameter', '-Wno-error=unused-function', '-Wno-error=unused-variable', '-Wno-error=builtin-declaration-mismatch', '-Wno-error=format-truncation', '-Wno-error=expansion-to-defined', '-Wno-error=zero-length-bounds', '-Wno-error=cast-function-type']
+CFLAGS = ['-std=c99', '-mcpu=cortex-m3', '-mthumb', '-ffunction-sections', '-fdata-sections', '-fcommon', '-g', '-fPIE', '-Os', '-D_TIME_H_', '-Dtime_t=long', '-Wall', '-Wextra', '-Werror', '-Wno-unused-parameter', '-Wno-error=unused-function', '-Wno-error=unused-variable', '-Wno-error=builtin-declaration-mismatch', '-Wno-error=format-truncation', '-Wno-error=expansion-to-defined', '-Wno-error=zero-length-bounds', '-Wno-error=cast-function-type', '-Wno-error=unused-value']
 CFLAGS_MACBUNDLE = ['-fPIC']
 CFLAGS_cshlib = ['-fPIC']
 CPPPATH_ST = '-I%s'
-DEFINES = ['RELEASE', 'PBL_PLATFORM_GABBRO', 'PBL_COLOR', 'PBL_ROUND', 'PBL_MICROPHONE', 'PBL_HEALTH', 'PBL_COMPASS', 'PBL_DISPLAY_WIDTH=260', 'PBL_DISPLAY_HEIGHT=260', 'PBL_SDK_3']
+DEFINES = ['RELEASE', 'PBL_PLATFORM_GABBRO', 'PBL_COLOR', 'PBL_ROUND', 'PBL_MICROPHONE', 'PBL_HEALTH', 'PBL_COMPASS', 'PBL_TOUCH', 'PBL_DISPLAY_WIDTH=260', 'PBL_DISPLAY_HEIGHT=260', 'PBL_SDK_3']
 DEFINES_ST = '-D%s'
 DEST_BINFMT = 'elf'
 DEST_CPU = 'arm'
@@ -34,7 +34,7 @@ LINKFLAGS_MACBUNDLE = ['-bundle', '-undefined', 'dynamic_lookup']
 LINKFLAGS_cshlib = ['-shared']
 LINKFLAGS_cstlib = ['-Wl,-Bstatic']
 LINK_CC = ['arm-none-eabi-gcc']
-MESSAGE_KEYS = {'BG_COLOR': 10000, 'SEC_INTERVAL': 10001}
+MESSAGE_KEYS = {'BG_COLOR': 10000, 'SEC_INTERVAL': 10001, 'BAT_THRESHOLD': 10002}
 MESSAGE_KEYS_DEFINITION = '/home/jeppe/pebble-projects/drift_watchface/build/src/message_keys.auto.c'
 MESSAGE_KEYS_HEADER = '/home/jeppe/pebble-projects/drift_watchface/build/include/message_keys.auto.h'
 MESSAGE_KEYS_JSON = '/home/jeppe/pebble-projects/drift_watchface/build/js/message_keys.json'
@@ -42,16 +42,16 @@ NODE_PATH = '/home/jeppe/.pebble-sdk/SDKs/current/node_modules'
 PEBBLE_SDK_COMMON = '/home/jeppe/.pebble-sdk/SDKs/current/sdk-core/pebble/common'
 PEBBLE_SDK_PLATFORM = '/home/jeppe/.pebble-sdk/SDKs/current/sdk-core/pebble/gabbro'
 PEBBLE_SDK_ROOT = '/home/jeppe/.pebble-sdk/SDKs/current/sdk-core/pebble'
-PLATFORM = {'NAME': 'gabbro', 'MAX_APP_BINARY_SIZE': 131072, 'MAX_APP_MEMORY_SIZE': 131072, 'MAX_WORKER_MEMORY_SIZE': 10240, 'MAX_RESOURCES_SIZE_APPSTORE': 262144, 'MAX_RESOURCES_SIZE': 1048576, 'DEFINES': ['PBL_PLATFORM_GABBRO', 'PBL_COLOR', 'PBL_ROUND', 'PBL_MICROPHONE', 'PBL_HEALTH', 'PBL_COMPASS', 'PBL_DISPLAY_WIDTH=260', 'PBL_DISPLAY_HEIGHT=260'], 'BUILD_DIR': 'gabbro', 'BUNDLE_BIN_DIR': 'gabbro', 'ADDITIONAL_TEXT_LINES_FOR_PEBBLE_H': [], 'MAX_FONT_GLYPH_SIZE': 512, 'TAGS': ['gabbro', 'color', 'round', 'mic', 'health', 'compass', '260w', '260h']}
+PLATFORM = {'NAME': 'gabbro', 'MAX_APP_BINARY_SIZE': 131072, 'MAX_APP_MEMORY_SIZE': 131072, 'MAX_WORKER_MEMORY_SIZE': 10240, 'MAX_RESOURCES_SIZE_APPSTORE': 262144, 'MAX_RESOURCES_SIZE': 1048576, 'DEFINES': ['PBL_PLATFORM_GABBRO', 'PBL_COLOR', 'PBL_ROUND', 'PBL_MICROPHONE', 'PBL_HEALTH', 'PBL_COMPASS', 'PBL_TOUCH', 'PBL_DISPLAY_WIDTH=260', 'PBL_DISPLAY_HEIGHT=260'], 'BUILD_DIR': 'gabbro', 'BUNDLE_BIN_DIR': 'gabbro', 'ADDITIONAL_TEXT_LINES_FOR_PEBBLE_H': [], 'MAX_FONT_GLYPH_SIZE': 512, 'TAGS': ['gabbro', 'color', 'round', 'mic', 'health', 'compass', 'touch', '260w', '260h']}
 PLATFORM_NAME = 'gabbro'
 PREFIX = '/usr/local'
-PROJECT_INFO = {'displayName': 'Drift', 'uuid': 'f7f8132f-cf6f-44fb-9ff8-f2deb5b88125', 'sdkVersion': '3', 'enableMultiJS': True, 'targetPlatforms': ['aplite', 'basalt', 'chalk', 'diorite', 'emery', 'flint', 'gabbro'], 'watchapp': {'watchface': True}, 'messageKeys': {'BG_COLOR': 10000, 'SEC_INTERVAL': 10001}, 'resources': {'media': []}, 'name': 'drift', 'shortName': 'Drift', 'longName': 'Drift', 'versionLabel': '1.1', 'companyName': 'Algorythm', 'appKeys': {'BG_COLOR': 10000, 'SEC_INTERVAL': 10001}}
+PROJECT_INFO = {'displayName': 'Drift', 'uuid': 'f7f8132f-cf6f-44fb-9ff8-f2deb5b88125', 'sdkVersion': '3', 'enableMultiJS': True, 'targetPlatforms': ['aplite', 'basalt', 'chalk', 'diorite', 'emery', 'flint', 'gabbro'], 'watchapp': {'watchface': True, 'configurable': True}, 'messageKeys': {'BG_COLOR': 10000, 'SEC_INTERVAL': 10001, 'BAT_THRESHOLD': 10002}, 'resources': {'media': []}, 'name': 'drift', 'shortName': 'Drift', 'longName': 'Drift', 'versionLabel': '1.1.0', 'companyName': 'Algorythm', 'appKeys': {'BG_COLOR': 10000, 'SEC_INTERVAL': 10001, 'BAT_THRESHOLD': 10002}}
 REQUESTED_PLATFORMS = ['aplite', 'basalt', 'chalk', 'diorite', 'emery', 'flint', 'gabbro']
 RESOURCES_JSON = []
 RPATH_ST = '-Wl,-rpath,%s'
 SANDBOX = False
 SDK_VERSION_MAJOR = 5
-SDK_VERSION_MINOR = 89
+SDK_VERSION_MINOR = 95
 SHLIB_MARKER = None
 SIZE = 'arm-none-eabi-size'
 SONAME_ST = '-Wl,-h,%s'
@@ -60,7 +60,7 @@ STLIB_MARKER = None
 STLIB_ST = '-l%s'
 SUPPORTED_PLATFORMS = ['emery', 'diorite', 'chalk', 'basalt', 'gabbro', 'aplite', 'flint']
 TARGET_PLATFORMS = ['gabbro', 'flint', 'emery', 'diorite', 'chalk', 'basalt', 'aplite']
-TIMESTAMP = 1776773522
+TIMESTAMP = 1778487168
 USE_GROUPS = True
 VERBOSE = 0
 WEBPACK = ['/home/jeppe/.pebble-sdk/SDKs/current/node_modules/.bin/webpack']

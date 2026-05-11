@@ -23,11 +23,13 @@
       "gabbro"
     ],
     "watchapp": {
-      "watchface": true
+      "watchface": true,
+      "configurable": true
     },
     "messageKeys": [
       "BG_COLOR",
-      "SEC_INTERVAL"
+      "SEC_INTERVAL",
+      "BAT_THRESHOLD"
     ],
     "resources": {
       "media": []

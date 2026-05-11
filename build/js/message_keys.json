@@ -1,4 +1,5 @@
 {
+    "BAT_THRESHOLD": 10002,
     "BG_COLOR": 10000,
     "SEC_INTERVAL": 10001
 }

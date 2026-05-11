@@ -13,11 +13,13 @@
         "gabbro"
     ],
     "watchapp": {
-        "watchface": true
+        "watchface": true,
+        "configurable": true
     },
     "messageKeys": {
         "BG_COLOR": 10000,
-        "SEC_INTERVAL": 10001
+        "SEC_INTERVAL": 10001,
+        "BAT_THRESHOLD": 10002
     },
     "resources": {
         "media": []
@@ -25,11 +27,12 @@
     "name": "drift",
     "shortName": "Drift",
     "longName": "Drift",
-    "versionLabel": "1.1",
+    "versionLabel": "1.1.0",
     "companyName": "Algorythm",
     "appKeys": {
         "BG_COLOR": 10000,
-        "SEC_INTERVAL": 10001
+        "SEC_INTERVAL": 10001,
+        "BAT_THRESHOLD": 10002
     },
     "capabilities": []
 }

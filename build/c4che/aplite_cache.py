@@ -14,7 +14,7 @@ CC_NAME = 'gcc'
 CC_SRC_F = []
 CC_TGT_F = ['-c', '-o']
 CC_VERSION = ('14', '2', '1')
-CFLAGS = ['-std=c99', '-mcpu=cortex-m3', '-mthumb', '-ffunction-sections', '-fdata-sections', '-fcommon', '-g', '-fPIE', '-Os', '-D_TIME_H_', '-Dtime_t=long', '-Wall', '-Wextra', '-Werror', '-Wno-unused-parameter', '-Wno-error=unused-function', '-Wno-error=unused-variable', '-Wno-error=builtin-declaration-mismatch', '-Wno-error=format-truncation', '-Wno-error=expansion-to-defined', '-Wno-error=zero-length-bounds', '-Wno-error=cast-function-type']
+CFLAGS = ['-std=c99', '-mcpu=cortex-m3', '-mthumb', '-ffunction-sections', '-fdata-sections', '-fcommon', '-g', '-fPIE', '-Os', '-D_TIME_H_', '-Dtime_t=long', '-Wall', '-Wextra', '-Werror', '-Wno-unused-parameter', '-Wno-error=unused-function', '-Wno-error=unused-variable', '-Wno-error=builtin-declaration-mismatch', '-Wno-error=format-truncation', '-Wno-error=expansion-to-defined', '-Wno-error=zero-length-bounds', '-Wno-error=cast-function-type', '-Wno-error=unused-value']
 CFLAGS_MACBUNDLE = ['-fPIC']
 CFLAGS_cshlib = ['-fPIC']
 CPPPATH_ST = '-I%s'
@@ -34,7 +34,7 @@ LINKFLAGS_MACBUNDLE = ['-bundle', '-undefined', 'dynamic_lookup']
 LINKFLAGS_cshlib = ['-shared']
 LINKFLAGS_cstlib = ['-Wl,-Bstatic']
 LINK_CC = ['arm-none-eabi-gcc']
-MESSAGE_KEYS = {'BG_COLOR': 10000, 'SEC_INTERVAL': 10001}
+MESSAGE_KEYS = {'BG_COLOR': 10000, 'SEC_INTERVAL': 10001, 'BAT_THRESHOLD': 10002}
 MESSAGE_KEYS_DEFINITION = '/home/jeppe/pebble-projects/drift_watchface/build/src/message_keys.auto.c'
 MESSAGE_KEYS_HEADER = '/home/jeppe/pebble-projects/drift_watchface/build/include/message_keys.auto.h'
 MESSAGE_KEYS_JSON = '/home/jeppe/pebble-projects/drift_watchface/build/js/message_keys.json'
@@ -45,7 +45,7 @@ PEBBLE_SDK_ROOT = '/home/jeppe/.pebble-sdk/SDKs/current/sdk-core/pebble'
 PLATFORM = {'NAME': 'aplite', 'MAX_APP_BINARY_SIZE': 65536, 'MAX_APP_MEMORY_SIZE': 24576, 'MAX_WORKER_MEMORY_SIZE': 10240, 'MAX_RESOURCES_SIZE_APPSTORE': 131072, 'MAX_RESOURCES_SIZE_APPSTORE_2_X': 98304, 'MAX_RESOURCES_SIZE': 524288, 'DEFINES': ['PBL_PLATFORM_APLITE', 'PBL_BW', 'PBL_RECT', 'PBL_COMPASS', 'PBL_DISPLAY_WIDTH=144', 'PBL_DISPLAY_HEIGHT=168', 'PBL_SDK_FROZEN'], 'FROZEN_AT_REVISION': 81, 'BUILD_DIR': 'aplite', 'BUNDLE_BIN_DIR': 'aplite', 'ADDITIONAL_TEXT_LINES_FOR_PEBBLE_H': [], 'MAX_FONT_GLYPH_SIZE': 256, 'TAGS': ['aplite', 'bw', 'rect', 'compass', '144w', '168h']}
 PLATFORM_NAME = 'aplite'
 PREFIX = '/usr/local'
-PROJECT_INFO = {'displayName': 'Drift', 'uuid': 'f7f8132f-cf6f-44fb-9ff8-f2deb5b88125', 'sdkVersion': '3', 'enableMultiJS': True, 'targetPlatforms': ['aplite', 'basalt', 'chalk', 'diorite', 'emery', 'flint', 'gabbro'], 'watchapp': {'watchface': True}, 'messageKeys': {'BG_COLOR': 10000, 'SEC_INTERVAL': 10001}, 'resources': {'media': []}, 'name': 'drift', 'shortName': 'Drift', 'longName': 'Drift', 'versionLabel': '1.1', 'companyName': 'Algorythm', 'appKeys': {'BG_COLOR': 10000, 'SEC_INTERVAL': 10001}}
+PROJECT_INFO = {'displayName': 'Drift', 'uuid': 'f7f8132f-cf6f-44fb-9ff8-f2deb5b88125', 'sdkVersion': '3', 'enableMultiJS': True, 'targetPlatforms': ['aplite', 'basalt', 'chalk', 'diorite', 'emery', 'flint', 'gabbro'], 'watchapp': {'watchface': True, 'configurable': True}, 'messageKeys': {'BG_COLOR': 10000, 'SEC_INTERVAL': 10001, 'BAT_THRESHOLD': 10002}, 'resources': {'media': []}, 'name': 'drift', 'shortName': 'Drift', 'longName': 'Drift', 'versionLabel': '1.1.0', 'companyName': 'Algorythm', 'appKeys': {'BG_COLOR': 10000, 'SEC_INTERVAL': 10001, 'BAT_THRESHOLD': 10002}}
 REQUESTED_PLATFORMS = ['aplite', 'basalt', 'chalk', 'diorite', 'emery', 'flint', 'gabbro']
 RESOURCES_JSON = []
 RPATH_ST = '-Wl,-rpath,%s'
@@ -60,7 +60,7 @@ STLIB_MARKER = None
 STLIB_ST = '-l%s'
 SUPPORTED_PLATFORMS = ['emery', 'diorite', 'chalk', 'basalt', 'gabbro', 'aplite', 'flint']
 TARGET_PLATFORMS = ['gabbro', 'flint', 'emery', 'diorite', 'chalk', 'basalt', 'aplite']
-TIMESTAMP = 1776773522
+TIMESTAMP = 1778487168
 USE_GROUPS = True
 VERBOSE = 0
 WEBPACK = ['/home/jeppe/.pebble-sdk/SDKs/current/node_modules/.bin/webpack']

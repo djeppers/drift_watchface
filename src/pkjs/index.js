@@ -1,9 +1,11 @@
 var STORAGE_BG  = 'bg_color';
 var STORAGE_SEC = 'sec_interval';
+var STORAGE_BAT = 'bat_threshold';
 
 Pebble.addEventListener('showConfiguration', function () {
   var curBg  = localStorage.getItem(STORAGE_BG)  || '0';
   var curSec = localStorage.getItem(STORAGE_SEC) || '0';
+  var curBat = localStorage.getItem(STORAGE_BAT) || '1';
 
   var bgOptions = [
     { value: '0', label: 'White'         },
@@ -15,6 +17,12 @@ Pebble.addEventListener('showConfiguration', function () {
     { value: '0', label: 'Smooth (100ms)'      },
     { value: '1', label: 'Half-second (500ms)' },
     { value: '2', label: 'Ticking (1s)'        }
+  ];
+
+  var batOptions = [
+    { value: '0', label: 'Below 5%'  },
+    { value: '1', label: 'Below 10%' },
+    { value: '2', label: 'Below 25%' }
   ];
 
   function buildSelect(id, options, current) {
@@ -44,14 +52,18 @@ Pebble.addEventListener('showConfiguration', function () {
     buildSelect('bg', bgOptions, curBg),
     '<label>Seconds Hand</label>',
     buildSelect('sec', secOptions, curSec),
+    '<label>Battery Alert</label>',
+    buildSelect('bat', batOptions, curBat),
     '<button onclick="save()">Save</button>',
     '<script>',
     'function save() {',
     '  var bg  = document.getElementById("bg").value;',
     '  var sec = document.getElementById("sec").value;',
+    '  var bat = document.getElementById("bat").value;',
     '  location.href = "pebblejs://close#" + encodeURIComponent(JSON.stringify({',
-    '    BG_COLOR:     parseInt(bg,  10),',
-    '    SEC_INTERVAL: parseInt(sec, 10)',
+    '    BG_COLOR:      parseInt(bg,  10),',
+    '    SEC_INTERVAL:  parseInt(sec, 10),',
+    '    BAT_THRESHOLD: parseInt(bat, 10)',
     '  }));',
     '}',
     '</script>',
@@ -73,9 +85,11 @@ Pebble.addEventListener('webviewclosed', function (e) {
 
   localStorage.setItem(STORAGE_BG,  config.BG_COLOR.toString());
   localStorage.setItem(STORAGE_SEC, config.SEC_INTERVAL.toString());
+  localStorage.setItem(STORAGE_BAT, config.BAT_THRESHOLD.toString());
 
   Pebble.sendAppMessage(
-    { BG_COLOR: config.BG_COLOR, SEC_INTERVAL: config.SEC_INTERVAL },
+    { BG_COLOR: config.BG_COLOR, SEC_INTERVAL: config.SEC_INTERVAL,
+      BAT_THRESHOLD: config.BAT_THRESHOLD },
     function () { console.log('config sent'); },
     function () { console.log('sendAppMessage failed'); }
   );
