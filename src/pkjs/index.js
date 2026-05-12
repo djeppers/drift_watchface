@@ -8,7 +8,7 @@ Pebble.addEventListener('showConfiguration', function () {
   var curBat = localStorage.getItem(STORAGE_BAT) || '1';
 
   var watchInfo = Pebble.getActiveWatchInfo();
-  var isColor = ['basalt', 'chalk', 'emery', 'flint', 'gabbro'].indexOf(watchInfo.platform) !== -1;
+  var isColor = ['basalt', 'chalk', 'emery', 'gabbro'].indexOf(watchInfo.platform) !== -1;
   var bgOptions = isColor ? [
     { value: '0', label: 'White'         },
     { value: '1', label: 'Light Gray'    },
