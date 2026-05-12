@@ -45,7 +45,7 @@ PEBBLE_SDK_ROOT = '/home/jeppe/.pebble-sdk/SDKs/current/sdk-core/pebble'
 PLATFORM = {'NAME': 'chalk', 'MAX_APP_BINARY_SIZE': 65536, 'MAX_APP_MEMORY_SIZE': 65536, 'MAX_WORKER_MEMORY_SIZE': 10240, 'MAX_RESOURCES_SIZE_APPSTORE': 262144, 'MAX_RESOURCES_SIZE': 1048576, 'DEFINES': ['PBL_PLATFORM_CHALK', 'PBL_COLOR', 'PBL_ROUND', 'PBL_MICROPHONE', 'PBL_SMARTSTRAP', 'PBL_HEALTH', 'PBL_COMPASS', 'PBL_SMARTSTRAP_POWER', 'PBL_DISPLAY_WIDTH=180', 'PBL_DISPLAY_HEIGHT=180', 'PBL_SDK_FROZEN'], 'FROZEN_AT_REVISION': 89, 'BUILD_DIR': 'chalk', 'BUNDLE_BIN_DIR': 'chalk', 'ADDITIONAL_TEXT_LINES_FOR_PEBBLE_H': [], 'MAX_FONT_GLYPH_SIZE': 256, 'TAGS': ['chalk', 'color', 'round', 'mic', 'strap', 'strappower', 'compass', 'health', '180w', '180h']}
 PLATFORM_NAME = 'chalk'
 PREFIX = '/usr/local'
-PROJECT_INFO = {'displayName': 'Drift', 'uuid': 'f7f8132f-cf6f-44fb-9ff8-f2deb5b88125', 'sdkVersion': '3', 'enableMultiJS': True, 'targetPlatforms': ['aplite', 'basalt', 'chalk', 'diorite', 'emery', 'flint', 'gabbro'], 'watchapp': {'watchface': True, 'configurable': True}, 'messageKeys': {'BG_COLOR': 10000, 'SEC_INTERVAL': 10001, 'BAT_THRESHOLD': 10002}, 'resources': {'media': []}, 'name': 'drift', 'shortName': 'Drift', 'longName': 'Drift', 'versionLabel': '1.2.1', 'companyName': 'Algorythm', 'appKeys': {'BG_COLOR': 10000, 'SEC_INTERVAL': 10001, 'BAT_THRESHOLD': 10002}}
+PROJECT_INFO = {'displayName': 'Drift', 'uuid': 'f7f8132f-cf6f-44fb-9ff8-f2deb5b88125', 'sdkVersion': '3', 'enableMultiJS': True, 'targetPlatforms': ['aplite', 'basalt', 'chalk', 'diorite', 'emery', 'flint', 'gabbro'], 'watchapp': {'watchface': True, 'configurable': True}, 'capabilities': ['configurable'], 'messageKeys': {'BG_COLOR': 10000, 'SEC_INTERVAL': 10001, 'BAT_THRESHOLD': 10002}, 'resources': {'media': []}, 'name': 'drift', 'shortName': 'Drift', 'longName': 'Drift', 'versionLabel': '1.2.4', 'companyName': 'Algorythm', 'appKeys': {'BG_COLOR': 10000, 'SEC_INTERVAL': 10001, 'BAT_THRESHOLD': 10002}}
 REQUESTED_PLATFORMS = ['aplite', 'basalt', 'chalk', 'diorite', 'emery', 'flint', 'gabbro']
 RESOURCES_JSON = []
 RPATH_ST = '-Wl,-rpath,%s'
@@ -60,7 +60,7 @@ STLIB_MARKER = None
 STLIB_ST = '-l%s'
 SUPPORTED_PLATFORMS = ['emery', 'diorite', 'chalk', 'basalt', 'gabbro', 'aplite', 'flint']
 TARGET_PLATFORMS = ['gabbro', 'flint', 'emery', 'diorite', 'chalk', 'basalt', 'aplite']
-TIMESTAMP = 1778487748
+TIMESTAMP = 1778616749
 USE_GROUPS = True
 VERBOSE = 0
 WEBPACK = ['/home/jeppe/.pebble-sdk/SDKs/current/node_modules/.bin/webpack']

@@ -266,9 +266,10 @@ static void canvas_update_proc(Layer *layer, GContext *ctx) {
   bool show_bat = true;
 #else
   static const int bat_pct[] = { 5, 10, 25 };
-  int thresh = bat_pct[ICLAMP(s_bat_threshold, 0, 2)];
-  bool show_bat = !s_battery.is_charging &&
-                  (int)s_battery.charge_percent <= thresh;
+  bool show_bat = s_bat_threshold < 3 &&
+                  !s_battery.is_charging &&
+                  (int)s_battery.charge_percent <=
+                      bat_pct[ICLAMP(s_bat_threshold, 0, 2)];
 #endif
   if (show_bat) {
     GPoint bat_pos = GPoint(CX, (CY + PBL_DISPLAY_HEIGHT) / 2);

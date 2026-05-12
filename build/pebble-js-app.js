@@ -103,10 +103,16 @@
 	  var curSec = localStorage.getItem(STORAGE_SEC) || '0';
 	  var curBat = localStorage.getItem(STORAGE_BAT) || '1';
 	
-	  var bgOptions = [
+	  var watchInfo = Pebble.getActiveWatchInfo();
+	  var isColor = ['basalt', 'chalk', 'emery', 'flint', 'gabbro'].indexOf(watchInfo.platform) !== -1;
+	  var bgOptions = isColor ? [
 	    { value: '0', label: 'White'         },
 	    { value: '1', label: 'Light Gray'    },
 	    { value: '2', label: 'Pastel Yellow' }
+	  ] : [
+	    { value: '0', label: 'Default'       },
+	    { value: '1', label: 'Light'         },
+	    { value: '2', label: 'Warm'          }
 	  ];
 	
 	  var secOptions = [
@@ -118,7 +124,8 @@
 	  var batOptions = [
 	    { value: '0', label: 'Below 5%'  },
 	    { value: '1', label: 'Below 10%' },
-	    { value: '2', label: 'Below 25%' }
+	    { value: '2', label: 'Below 25%' },
+	    { value: '3', label: 'Off'        }
 	  ];
 	
 	  function buildSelect(id, options, current) {

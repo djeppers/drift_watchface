@@ -1811,11 +1811,11 @@ LOAD /home/jeppe/.pebble-sdk/SDKs/4.9.169/toolchain/arm-none-eabi/bin/../lib/gcc
  .comment       0x00000039       0x3a /home/jeppe/.pebble-sdk/SDKs/4.9.169/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-errno.o)
  .comment       0x00000039       0x3a /home/jeppe/.pebble-sdk/SDKs/4.9.169/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7-m/nofp/crtend.o
 
-.debug_info     0x00000000     0x1e6b
- .debug_info    0x00000000     0x1a1b src/c/drift.c.57.o
- .debug_info    0x00001a1b      0x33e aplite/appinfo.auto.c.57.o
- .debug_info    0x00001d59       0x65 aplite/src/resource_ids.auto.c.57.o
- .debug_info    0x00001dbe       0xad src/message_keys.auto.c.57.o
+.debug_info     0x00000000     0x1e57
+ .debug_info    0x00000000     0x1a07 src/c/drift.c.57.o
+ .debug_info    0x00001a07      0x33e aplite/appinfo.auto.c.57.o
+ .debug_info    0x00001d45       0x65 aplite/src/resource_ids.auto.c.57.o
+ .debug_info    0x00001daa       0xad src/message_keys.auto.c.57.o
 
 .debug_abbrev   0x00000000      0x624
  .debug_abbrev  0x00000000      0x4fb src/c/drift.c.57.o
@@ -1824,9 +1824,9 @@ LOAD /home/jeppe/.pebble-sdk/SDKs/4.9.169/toolchain/arm-none-eabi/bin/../lib/gcc
  .debug_abbrev  0x000005da       0x4a src/message_keys.auto.c.57.o
 
 .debug_loclists
-                0x00000000      0xc50
+                0x00000000      0xc24
  .debug_loclists
-                0x00000000      0xc50 src/c/drift.c.57.o
+                0x00000000      0xc24 src/c/drift.c.57.o
 
 .debug_aranges  0x00000000       0xb8
  .debug_aranges
@@ -1843,18 +1843,18 @@ LOAD /home/jeppe/.pebble-sdk/SDKs/4.9.169/toolchain/arm-none-eabi/bin/../lib/gcc
  .debug_rnglists
                 0x00000000      0x116 src/c/drift.c.57.o
 
-.debug_line     0x00000000      0xcf6
- .debug_line    0x00000000      0xa49 src/c/drift.c.57.o
- .debug_line    0x00000a49      0x163 aplite/appinfo.auto.c.57.o
- .debug_line    0x00000bac       0x3f aplite/src/resource_ids.auto.c.57.o
- .debug_line    0x00000beb      0x10b src/message_keys.auto.c.57.o
+.debug_line     0x00000000      0xcf9
+ .debug_line    0x00000000      0xa4c src/c/drift.c.57.o
+ .debug_line    0x00000a4c      0x163 aplite/appinfo.auto.c.57.o
+ .debug_line    0x00000baf       0x3f aplite/src/resource_ids.auto.c.57.o
+ .debug_line    0x00000bee      0x10b src/message_keys.auto.c.57.o
 
-.debug_str      0x00000000      0xe44
- .debug_str     0x00000000      0xe44 src/c/drift.c.57.o
-                                0xb98 (size before relaxing)
- .debug_str     0x00000e44      0x4d4 aplite/appinfo.auto.c.57.o
- .debug_str     0x00000e44      0x168 aplite/src/resource_ids.auto.c.57.o
- .debug_str     0x00000e44      0x1bd src/message_keys.auto.c.57.o
+.debug_str      0x00000000      0xe3d
+ .debug_str     0x00000000      0xe3d src/c/drift.c.57.o
+                                0xb91 (size before relaxing)
+ .debug_str     0x00000e3d      0x4d4 aplite/appinfo.auto.c.57.o
+ .debug_str     0x00000e3d      0x168 aplite/src/resource_ids.auto.c.57.o
+ .debug_str     0x00000e3d      0x1bd src/message_keys.auto.c.57.o
 
 .debug_frame    0x00000000      0x178
  .debug_frame   0x00000000      0x178 src/c/drift.c.57.o

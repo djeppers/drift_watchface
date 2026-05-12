@@ -16,6 +16,9 @@
         "watchface": true,
         "configurable": true
     },
+    "capabilities": [
+        "configurable"
+    ],
     "messageKeys": {
         "BG_COLOR": 10000,
         "SEC_INTERVAL": 10001,
@@ -27,12 +30,11 @@
     "name": "drift",
     "shortName": "Drift",
     "longName": "Drift",
-    "versionLabel": "1.2.1",
+    "versionLabel": "1.2.4",
     "companyName": "Algorythm",
     "appKeys": {
         "BG_COLOR": 10000,
         "SEC_INTERVAL": 10001,
         "BAT_THRESHOLD": 10002
-    },
-    "capabilities": []
+    }
 }
