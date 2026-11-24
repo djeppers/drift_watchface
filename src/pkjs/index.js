@@ -4,8 +4,9 @@ var STORAGE_BAT = 'bat_threshold';
 
 Pebble.addEventListener('showConfiguration', function () {
   var curBg  = localStorage.getItem(STORAGE_BG)  || '0';
-  var curSec = localStorage.getItem(STORAGE_SEC) || '0';
-  var curBat = localStorage.getItem(STORAGE_BAT) || '1';
+  var curSec = localStorage.getItem(STORAGE_SEC) || '2';
+  // Defaults match the watch: Ticking, Below 5%.
+  var curBat = localStorage.getItem(STORAGE_BAT) || '0';
 
   var watchInfo = Pebble.getActiveWatchInfo();
   var isColor = ['basalt', 'chalk', 'emery', 'gabbro'].indexOf(watchInfo.platform) !== -1;
@@ -22,7 +23,8 @@ Pebble.addEventListener('showConfiguration', function () {
   var secOptions = [
     { value: '0', label: 'Smooth (100ms)'      },
     { value: '1', label: 'Half-second (500ms)' },
-    { value: '2', label: 'Ticking (1s)'        }
+    { value: '2', label: 'Ticking (1s)'        },
+    { value: '3', label: 'Auto (smooth when you look)' }
   ];
 
   var batOptions = [
@@ -90,13 +92,25 @@ Pebble.addEventListener('webviewclosed', function (e) {
     return;
   }
 
-  localStorage.setItem(STORAGE_BG,  config.BG_COLOR.toString());
-  localStorage.setItem(STORAGE_SEC, config.SEC_INTERVAL.toString());
-  localStorage.setItem(STORAGE_BAT, config.BAT_THRESHOLD.toString());
+  if (!config || typeof config !== 'object') return;
+
+  // Fall back to the defaults for any missing or malformed value.
+  function num(v, fallback) {
+    var n = parseInt(v, 10);
+    return isNaN(n) ? fallback : n;
+  }
+  var msg = {
+    BG_COLOR:      num(config.BG_COLOR,      0),
+    SEC_INTERVAL:  num(config.SEC_INTERVAL,  2),
+    BAT_THRESHOLD: num(config.BAT_THRESHOLD, 0)
+  };
+
+  localStorage.setItem(STORAGE_BG,  String(msg.BG_COLOR));
+  localStorage.setItem(STORAGE_SEC, String(msg.SEC_INTERVAL));
+  localStorage.setItem(STORAGE_BAT, String(msg.BAT_THRESHOLD));
 
   Pebble.sendAppMessage(
-    { BG_COLOR: config.BG_COLOR, SEC_INTERVAL: config.SEC_INTERVAL,
-      BAT_THRESHOLD: config.BAT_THRESHOLD },
+    msg,
     function () { console.log('config sent'); },
     function () { console.log('sendAppMessage failed'); }
   );
