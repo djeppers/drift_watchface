@@ -1,0 +1,105 @@
+# Builds Drift and releases it when a version tag is pushed:
+#   git tag v1.3.0 && git push origin v1.3.0
+#
+# 1. Checks the tag matches "version" in package.json.
+# 2. Builds the .pbw for all platforms.
+# 3. Creates a GitHub release with the .pbw attached.
+# 4. Uploads the release to the Repebble appstore, if the
+#    PEBBLE_REFRESH_TOKEN secret is set. Skipped otherwise.
+#
+# Release notes are the tagged commit's message, minus the subject line and
+# Co-Authored-By trailers.
+#
+# The store release is uploaded as a draft unless the repository variable
+# PEBBLE_PUBLISH_LIVE is set to "true". Store screenshots are left as they
+# are; update them on the developer dashboard when the look changes.
+
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+env:
+  # Versions tested locally with this project. Bump together when upgrading.
+  PEBBLE_TOOL_VERSION: '5.0.39'
+  PEBBLE_SDK_VERSION: '4.17'
+
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check tag matches package.json version
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          version="$(node -p "require('./package.json').version")"
+          if [ "$tag" != "$version" ]; then
+            echo "::error::Tag v$tag does not match package.json version $version"
+            exit 1
+          fi
+          echo "VERSION=$version" >> "$GITHUB_ENV"
+
+      - uses: astral-sh/setup-uv@v6
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install pebble-tool and SDK
+        run: |
+          uv tool install "pebble-tool==${PEBBLE_TOOL_VERSION}"
+          pebble sdk install "${PEBBLE_SDK_VERSION}"
+
+      - name: Build
+        run: pebble build
+
+      - name: Write release notes
+        run: |
+          git log -1 --format=%B "$GITHUB_SHA" \
+            | tail -n +2 \
+            | grep -v '^Co-Authored-By:' \
+            | sed -e '/./,$!d' > release_notes.txt
+          cat release_notes.txt
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" build/drift_watchface.pbw \
+            --title "Drift $VERSION" \
+            --notes-file release_notes.txt
+
+      - name: Upload to Repebble appstore
+        env:
+          PEBBLE_REFRESH_TOKEN: ${{ secrets.PEBBLE_REFRESH_TOKEN }}
+          PUBLISH_LIVE: ${{ vars.PEBBLE_PUBLISH_LIVE }}
+        run: |
+          if [ -z "$PEBBLE_REFRESH_TOKEN" ]; then
+            echo "PEBBLE_REFRESH_TOKEN secret not set; skipping appstore upload."
+            exit 0
+          fi
+
+          # Exchange the long-lived refresh token from 'pebble login' for a
+          # short-lived ID token, using the public Firebase key pebble-tool uses.
+          api_key="$("$(uv tool dir)/pebble-tool/bin/python" -c \
+            'from pebble_tool.firebase_account import DEFAULT_FIREBASE_API_KEY as k; print(k)')"
+          id_token="$(curl -fsS "https://securetoken.googleapis.com/v1/token?key=${api_key}" \
+            --data-urlencode grant_type=refresh_token \
+            --data-urlencode "refresh_token=${PEBBLE_REFRESH_TOKEN}" \
+            | python3 -c 'import json,sys; print(json.load(sys.stdin)["id_token"])')"
+          echo "::add-mask::$id_token"
+
+          live_flag=""
+          if [ "$PUBLISH_LIVE" = "true" ]; then live_flag="--is-published"; fi
+
+          PEBBLE_FIREBASE_ID_TOKEN="$id_token" pebble publish \
+            --non-interactive \
+            --no-gif-all-platforms \
+            --release-notes "$(cat release_notes.txt)" \
+            --source "https://github.com/${GITHUB_REPOSITORY}" \
+            $live_flag
