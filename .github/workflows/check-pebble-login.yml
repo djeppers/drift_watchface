@@ -1,0 +1,71 @@
+# Checks that the PEBBLE_REFRESH_TOKEN secret still works, without uploading
+# anything. Run it from the Actions tab with "Run workflow".
+#
+# It signs in with the secret, asks the Repebble appstore for your developer
+# account, and confirms Drift (by the UUID in package.json) is under it.
+# Only yes/no results are printed, never tokens or account details.
+
+name: Check Pebble login
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PEBBLE_TOOL_VERSION: '5.0.39'
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v6
+
+      - name: Install pebble-tool
+        run: uv tool install "pebble-tool==${PEBBLE_TOOL_VERSION}"
+
+      - name: Check secret against the appstore
+        env:
+          PEBBLE_REFRESH_TOKEN: ${{ secrets.PEBBLE_REFRESH_TOKEN }}
+        run: |
+          if [ -z "$PEBBLE_REFRESH_TOKEN" ]; then
+            echo "::error::PEBBLE_REFRESH_TOKEN secret is not set."
+            exit 1
+          fi
+
+          api_key="$("$(uv tool dir)/pebble-tool/bin/python" -c \
+            'from pebble_tool.firebase_account import DEFAULT_FIREBASE_API_KEY as k; print(k)')"
+
+          if ! token_json="$(curl -fsS "https://securetoken.googleapis.com/v1/token?key=${api_key}" \
+                --data-urlencode grant_type=refresh_token \
+                --data-urlencode "refresh_token=${PEBBLE_REFRESH_TOKEN}")"; then
+            echo "::error::Sign-in failed. The secret is wrong or expired; run 'pebble login' and update it."
+            exit 1
+          fi
+          id_token="$(printf '%s' "$token_json" | python3 -c 'import json,sys; print(json.load(sys.stdin)["id_token"])')"
+          echo "::add-mask::$id_token"
+          echo "Sign-in: OK"
+
+          me_json="$(curl -sS -w '\n%{http_code}' -H "Authorization: Bearer ${id_token}" \
+            https://appstore-api.repebble.com/api/v1/developer/me)"
+          status="$(printf '%s' "$me_json" | tail -n 1)"
+          if [ "$status" != "200" ]; then
+            echo "::error::Appstore account check failed (HTTP $status)."
+            exit 1
+          fi
+
+          uuid="$(node -p "require('./package.json').pebble.uuid")"
+          printf '%s' "$me_json" | sed '$d' | UUID="$uuid" python3 -c '
+          import json, os, sys
+          me = json.load(sys.stdin)
+          dev = me.get("developer") or {}
+          linked = isinstance(dev, dict) and bool(dev.get("id") or dev.get("_id") or dev.get("firebase_uid"))
+          apps = ((me.get("app_lookup") or {}).get("by_app_uuid") or {})
+          found = os.environ["UUID"].lower() in {k.lower() for k in apps}
+          print("Developer account linked:", "yes" if linked else "no")
+          print("Drift found under account:", "yes" if found else "no")
+          sys.exit(0 if linked and found else 1)
+          '
